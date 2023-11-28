@@ -57,8 +57,8 @@ class User extends Authenticatable
 
     }
 
-    $user->authoriseRoles('admin');
-    $user->authoriseRoles(['admin', 'editor']);
+    // $user->authoriseRoles('admin');
+    // $user->authoriseRoles(['admin', 'editor']);
 
     public function authoriseRoles($roles){
 

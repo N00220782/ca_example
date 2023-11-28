@@ -1,26 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Publisher;
 use App\Models\Author;
-
-
-
 use Illuminate\Http\Request;
+use Auth;
 
 class BookController extends Controller
 {
+    public function __construct(){
+        //Auth::user()->authoriseRoles('admin');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $books = Book::all();
-
-        return view('books.index', [
-            'books' => $books 
-        ]);
+        //Auth::user()->authoriseRoles('admin');
+        if(!Auth::user()->hasRole('admin')){
+            return to_route('user.books.index');
+        }
+        $books = Book::paginate(10);
+        return view('admin.books.index')->with('books', $books);
     }
 
     /**
@@ -28,9 +31,11 @@ class BookController extends Controller
      */
     public function create()
     {
+        //Auth::user()->authoriseRoles('admin');
+
         $publishers = Publisher::all();
         $authors = Author::all();
-        return view('books.create')->with('publishers', $publishers)
+        return view('admin.books.create')->with('publishers', $publishers)
                                    ->with('authors', $authors);
     }
 
@@ -65,7 +70,7 @@ class BookController extends Controller
             $book->authors()->attach($request->authors);
 
     
-            return to_route('books.index');
+            return to_route('admin.books.index');
         }
     }
 
@@ -76,7 +81,7 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
 
-        return view('books.show', [
+        return view('admin.books.show', [
             'book' => $book 
         ]);
     }

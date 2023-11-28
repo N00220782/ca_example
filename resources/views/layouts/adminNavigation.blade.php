@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('user.books.index')" :active="request()->routeIs('user.books.index')">
+                    <x-nav-link :href="route('admin.books.index')" :active="request()->routeIs('admin.books.index')">
                         {{ __('Books') }}
                     </x-nav-link>
                 </div>

@@ -22,16 +22,30 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('authors.index')" :active="request()->routeIs('authors.index')">
+                    <x-nav-link :href="route('admin.books.create')" :active="request()->routeIs('admin.books.create')">
+                        {{ __('Create Book') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.authors.index')" :active="request()->routeIs('admin.authors.index')">
                         {{ __('Authors') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('publishers.index')" :active="request()->routeIs('publishers.index')">
+                    <x-nav-link :href="route('admin.authors.create')" :active="request()->routeIs('admin.authors.create')">
+                        {{ __('Create Author') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.publishers.index')" :active="request()->routeIs('admin.publishers.index')">
                         {{ __('Publishers') }}
                     </x-nav-link>
                 </div>
-                
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.publishers.create')" :active="request()->routeIs('admin.publishers.create')">
+                        {{ __('Create Publisher') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

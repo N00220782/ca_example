@@ -52,20 +52,29 @@ class BookController extends Controller
                 'isbn' => 'required',
                 //'author' =>'required',
                 //'book_image' => 'file|image|dimensions:width=300,height=400'
-                //'book_image' => 'file|image',
+                'book_image' => 'file|image',
                 'publisher_id' => 'required',
                 'authors' =>['required' , 'exists:authors,id']
             ]);
+
+            $book_image = $request->file('book_image');
+            $extension = $book_image->getClientOriginalExtension();
+            $filename = date('Y-m-d-His') . '_' . $request->title . '.' . $extension;
+
+            $book_image->storeAs('public/images', $filename);
     
             $book = Book::create([
                 'title' => $request->title,
                 'description' => $request->description,
                 'isbn' => $request->isbn,
-                //'book_image' => $filename,
+                'book_image' => $filename,
                 //'author' => $request->author,
                 'publisher_id' => $request->publisher_id
 
             ]);
+
+            // $book = new Book();
+            // $book->title = $request
 
             $book->authors()->attach($request->authors);
 

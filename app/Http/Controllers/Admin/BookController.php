@@ -100,7 +100,13 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $publishers = Publisher::all();
+        $authors = Author::all();
+        $book = Book::findOrFail($id);
+        return view('admin.books.edit', [
+            'book' => $book 
+        ])->with('publishers', $publishers)
+                                   ->with('authors', $authors);
     }
 
     /**
@@ -108,7 +114,40 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'isbn' => 'required',
+            //'author' =>'required',
+            //'book_image' => 'file|image|dimensions:width=300,height=400'
+            'book_image' => 'file|image',
+            'publisher_id' => 'required',
+            'authors' =>['required' , 'exists:authors,id']
+        ]);
+
+        $book_image = $request->file('book_image');
+        $extension = $book_image->getClientOriginalExtension();
+        $filename = date('Y-m-d-His') . '_' . $request->title . '.' . $extension;
+
+        $book_image->storeAs('public/images', $filename);
+
+        $book = Book::update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'isbn' => $request->isbn,
+            'book_image' => $filename,
+            //'author' => $request->author,
+            'publisher_id' => $request->publisher_id
+
+        ]);
+
+        // $book = new Book();
+        // $book->title = $request
+
+        $book->authors()->attach($request->authors);
+
+
+        return to_route('admin.books.index');
     }
 
     /**

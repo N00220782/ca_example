@@ -1,10 +1,11 @@
-<x-admin-layout>
-    <x-slot name="header">
+@extends('layouts.admin')
+@section('header')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Books') }}
         </h2>
-    </x-slot>
+@endsection
 
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,8 +17,15 @@
                         <p><b>Description:</b> {{ $book->description }}</p>
                         <p><b>ISBN:</b> {{ $book->isbn }}</p>                        
                         <p><b>Publisher:</b> {{ $book->publisher->name }}</p> 
+                        <p><b>Author(s):</b>
+                            @foreach($book->authors as $author)
+                            {{ $author->name }}
+                            @endforeach
+                        <p>
+                        
 
-                        <p>edit n delete button here</p>
+
+                            <a href="{{ route('admin.books.edit', $book->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">edit</a>
                         
                     </div>
                 </div>
@@ -25,4 +33,4 @@
         </div>
     </div>
 
-</x-admin-layout>
+    @endsection

@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PublisherController;
-use App\Http\Controllers\AuthorController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
